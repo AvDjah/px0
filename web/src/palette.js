@@ -13,6 +13,8 @@ import { showCalls, openLspSetup } from './calls.js';
 import { showHelp } from './shortcuts.js';
 import { listThemes, currentTheme, setTheme, cycleTheme } from './theme.js';
 import { togglePreview } from './markdown.js';
+import { toggleVim } from './vim.js';
+import { vimClearKeymapDeltas } from './vim-keymap.js';
 
 export const overlay = $('#overlay');
 export const palInput = $('#pal');
@@ -45,6 +47,8 @@ export const COMMANDS = [
   { name: 'Close Tab', run: () => { if (S.active >= 0) closeTab(S.active); } },
   { name: 'Close All Tabs', run: () => { while (S.tabs.length) closeTab(0); } },
   { name: withKeys('Reopen Closed Tab ({Alt+Shift+T})'), run: () => reopenClosedTab() },
+  { name: 'Toggle Vim Navigation Mode', run: () => toggleVim() },
+  { name: 'Vim: Reset Custom Key Bindings', run: () => { vimClearKeymapDeltas(); location.reload(); } },
   { name: 'Keyboard Shortcuts', run: showHelp },
 ];
 

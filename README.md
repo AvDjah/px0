@@ -201,6 +201,10 @@ px0 --update
 | `Alt+1` ... `Alt+9`                                    | Select tab by position                                                                     |
 | `?`                                                    | Show all keyboard shortcuts                                                                |
 
+### Vim Navigation Mode (optional, off by default)
+
+Toggle via Command Palette (`Toggle Vim Navigation Mode`), the `Vim` footer button, or `:set vim`. Read-only subset: `h j k l w b e 0 $ ^ f F t T ; , % * # gg G H M L zz zt zb d/u` half page, `]]`/`[[` next/prev symbol, `}`/`{` next/prev blank line, `v/V` visual with `y` yank, `/ ? n N` search, and a `:` command line (`:e :ls :b :bn/:bp :q/:qa :only :o :<n> :noh :set :map :theme :diff :help`, `:w` is a no-op). Browser shortcuts are never hijacked (no `C-d/C-f/...` defaults; `C-c` still copies). Remap with `:map <lhs> <action>` (persisted per browser) or edit `web/src/vim-keymap.js`. Full tables: [`docs/vim.md`](docs/vim.md).
+
 ## Philosophy and Design Principles
 
 - **Optimized for Reads**: px0 does not attempt to be a heavy code editor. Code authoring belongs to AI agents, CLI tools, or dedicated editors. px0 focuses exclusively on the reader experience with zero write endpoints.

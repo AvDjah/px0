@@ -17,6 +17,7 @@ import { SEL_KEYS, runSelectionAction, selectAll, clearSelectAll, copySelectAll 
 import { cycleTheme } from './theme.js';
 import { previewing, togglePreview, previewKey, selectPreview } from './markdown.js';
 import { toggleDiff } from './diff.js';
+import { vimIsEnabled, vimHandleKey, vimHelpHTML, toggleVim } from './vim.js';
 
 /* Each entry lists alternative combos, written as for keyLabel in state.js so
    they show as ⌘/⌥/⇧ on a Mac and Ctrl/Alt/Shift elsewhere. Browsers keep
@@ -48,7 +49,8 @@ export function showHelp() {
   h.innerHTML = '<div class="help-card"><div class="help-header"><h2>Keyboard Shortcuts</h2>' + ver + '</div><dl class="help-grid">' +
     SHORTCUTS.map(([combos, v]) =>
       '<dt>' + combos.map(keyCaps).filter(Boolean).join('<span class="key-or">/</span>') + '</dt>' +
-      '<dd>' + esc(v) + '</dd>').join('') + '</dl></div>';
+      '<dd>' + esc(v) + '</dd>').join('') + '</dl></div>' +
+    (vimIsEnabled() ? vimHelpHTML() : '<p class="hint" style="margin:12px 0 0">Vim navigation is off — Command Palette &gt; Toggle Vim Mode, footer Vim button, or :set vim (when on).</p>');
   h.hidden = false;
 }
 
@@ -74,11 +76,22 @@ export function initShortcuts() {
     else if (act === 'line-numbers') toggleLineNumbers();
     else if (act === 'md-preview') togglePreview();
     else if (act === 'palette') openPalette('command');
+    else if (act === 'vim') toggleVim();
     else if (act === 'help') showHelp();
   });
 
   addEventListener('keydown', e => {
     const mod = e[MOD];
+
+    // Vim navigation (toggleable) takes precedence over the single-key
+    // motions below. It returns false for Mod/Alt combos, fields and the
+    // palette so existing shortcuts keep working.
+    if (e.target && e.target.id === 'vim-input') {
+      // Let vim.js own the cmdline keys (Enter/Esc/history/Tab).
+      if (vimIsEnabled() && vimHandleKey(e)) { e.preventDefault(); e.stopPropagation(); }
+      return;
+    }
+    if (vimIsEnabled() && vimHandleKey(e)) { e.preventDefault(); e.stopPropagation(); return; }
 
     if (e.key === 'Escape') {
       if (!overlay.hidden) { closePalette(); return; }

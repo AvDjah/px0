@@ -131,6 +131,11 @@
         <button id="find-next" title="Next ({Enter})">&#8595;</button>
         <button id="find-close" title="Close ({Esc})">&#10005;</button>
       </div>
+
+      <!-- Vim command line (: / ?) — bottom-anchored Ex bar, VSCodeVim style -->
+      <div id="vim-bar" hidden>
+        <span id="vim-bar-prefix">:</span><input id="vim-input" type="text" spellcheck="false" autocomplete="off" placeholder=""><span id="vim-bar-msg"></span>
+      </div>
     </div>
 
     <!-- Floating Copy Toast Notification -->
@@ -138,6 +143,8 @@
 
     <!-- Bottom Status Bar -->
     <footer id="status">
+      <!-- Vim mode indicator (leftmost, never shed by fitStatus) -->
+      <span id="vim-mode" hidden>-- NORMAL --</span>
       <!-- Selection actions: replace the buttons and size below while code is selected -->
       <div id="footer-sel">
         <span class="sel-chip">Selection</span>
@@ -156,6 +163,7 @@
         <button class="footer-btn" data-action="md-preview" title="Toggle Markdown Preview ({Alt+M})" hidden><span class="footer-btn-label">Preview</span><kbd class="footer-kbd" data-keys="Alt+M"></kbd></button>
         <button class="footer-btn" data-action="wrap" title="Toggle Word Wrap ({Alt+Z})"><span class="footer-btn-label">Wrap</span><kbd class="footer-kbd" data-keys="Alt+Z"></kbd></button>
         <button class="footer-btn" data-action="line-numbers" title="Toggle Line Numbers ({Alt+L})"><span class="footer-btn-label">Lines</span><kbd class="footer-kbd" data-keys="Alt+L"></kbd></button>
+        <button class="footer-btn" data-action="vim" title="Toggle Vim navigation mode"><span class="footer-btn-label">Vim</span></button>
         <button class="footer-btn" data-action="help" title="Keyboard Shortcuts ({?})"><span class="footer-btn-label">Help</span><kbd class="footer-kbd" data-keys="?"></kbd></button>
       </div>
       <span class="status-sep"></span>
