@@ -18,6 +18,7 @@ import { initShortcuts } from './shortcuts.js';
 import { initTheme } from './theme.js';
 import { initMarkdown } from './markdown.js';
 import { initDiff } from './diff.js';
+import { initAgent, applyAgentMeta } from './agent.js';
 import { updateStatus, initMetrics, initStatusFit, updateMetricsDisplay } from './status.js';
 
 // Initialize all subsystems
@@ -38,6 +39,7 @@ initVim();
 initShortcuts();
 initMarkdown();
 initDiff();
+initAgent();
 initMetrics();
 initStatusFit();
 
@@ -69,6 +71,7 @@ initStatusFit();
   S.meta = await api('/api/meta');
   if (S.meta.metrics) updateMetricsDisplay(S.meta.metrics);
   if (S.meta.git) { const b = $('#btn-changed'); if (b) b.hidden = false; }
+  applyAgentMeta();
   document.title = S.meta.name + ' - px0';
   $('#root-name').textContent = S.meta.name;
   $('#root-name').title = S.meta.root;
