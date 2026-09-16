@@ -1,5 +1,7 @@
 # px0
 
+> **Note:** This fork is actively working on a **Vim navigation feature set** (branch `feature/vim-navigation`): a toggleable Vim mode with motions, visual mode, `/` search, and a `:` Ex command line (`:w`, `:q`, `:map`, keymap customization — see [`docs/vim.md`](docs/vim.md)). Upstream is [`px0-ai/px0`](https://github.com/px0-ai/px0) (MIT, © Arpit Bhayani).
+
 px0 is a fast, ultra-light, remote-first IDE designed for instant code navigation and review in your browser. Booting in under 1 ms and using ~20 MB of RAM, it turns your browser into a zero-latency inspection console with symbol-level navigation, deep search, and syntax highlighting across massive codebases.
 
 ## Optimized for Reads
